@@ -83,9 +83,9 @@ public:
                 
                 arr[pos] = value; 
                                             
-                len++;
-                if(len > 1)
+                if(len != 0)
                     current++;	
+                len++;
         }    
 
 	}
@@ -98,9 +98,9 @@ public:
             if (len != size){
                 temp = (arr + len);
                 *temp = value;
-                len++;
-                if(len > 1)
+                if(len != 0)
                     current++;	
+                len++;
             }
             else{
                 cout << "Array is Full\n";
@@ -195,6 +195,10 @@ public:
             
     }
 
+    void Current(){
+        cout << *current << endl;
+    }
+
 };
 
 int main(){
@@ -216,6 +220,7 @@ int main(){
     obj1 = obj;
     cout << "copy constructor\n";
     obj1.print();
+    obj.Current();
 
 
 	return 0;

@@ -20,7 +20,7 @@ class List{
         void InsertAtFirst();
         void Search();
         void Delete();
-        ~List();
+        // ~List();
         
 };
 
@@ -87,7 +87,16 @@ void List::Delete(){
 
         do{
             if (temp->info == key){
-                if (temp == head){
+
+                // If there's only one node
+                if(head->next == head){
+                    delete temp;
+                    temp = head = NULL;
+                    return;
+                }
+                // deletion of first node
+                else if (temp == head){
+
                     while(temp->next != head){
                         temp = temp->next;
                     }
@@ -96,7 +105,10 @@ void List::Delete(){
                     temp1 = head;
                     head = head->next;
                     delete temp1;
+                    return;
                 }
+
+                // deletion of other nodes
                 else{
                     temp = head;
                     bool check = false;
@@ -167,17 +179,17 @@ void List::Search(){
 
 
 
-List::~List(){
-    delete head;
-    delete temp;
-    delete temp1;
-}
+// List::~List(){
+//     delete head;
+//     delete temp;
+//     delete temp1;
+// }
 
 int main(){
     List obj;
     for(int i = 0; i < 3; i++)
         obj.Insert();
-    obj.InsertAtFirst();
+    // obj.InsertAtFirst();
     obj.Delete();
     obj.Search();
     obj.Print();

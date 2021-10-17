@@ -19,7 +19,7 @@ class List{
         void Insert();
         void Search();
         void Delete();
-        ~List();
+        // ~List();
 
 };
 
@@ -108,15 +108,42 @@ void List::Delete(){
         cout << "Enter the element you want to delete: ";
         cin >> key;
 
-        while(temp != NULL){
-            if (temp->next->info == key){
-                temp1 = temp->next;
-                temp->next = temp->next->next;
+        // When There is only one element
+        if(temp->next == NULL){
+            if(temp->info == key){
+                temp1 = temp;
                 delete temp1;
                 temp1 = NULL;
+                temp = head = NULL ;
                 check = true;
             }
-            temp = temp->next;
+        }
+        else{
+            
+            // For head deletion
+            if (head->info == key){
+                temp = head;
+                head = head->next;
+                delete temp;
+                temp = head;
+                check = true;
+            }
+            else{
+                // for normal deletion
+                temp = head;
+                while(temp != NULL){
+                    if (temp->next->info == key){
+                        temp1 = temp->next;
+                        temp->next = temp1->next;
+                        delete temp1;
+                        temp1 = NULL; 
+                        temp = head;
+                        check = true;
+                        return;
+                    }
+                    temp = temp->next;
+                }
+            }
         }
 
         if (check == false)
@@ -124,11 +151,11 @@ void List::Delete(){
     }
 }
 
-List::~List(){
-    delete head;
-    delete temp;
-    delete temp1;
-}
+// List::~List(){
+//     delete head;
+//     delete temp;
+//     delete temp1;
+// }
 
 
 int main(){
@@ -160,4 +187,5 @@ int main(){
             cin >> cha;
         }
     }while(cha == 'Y' || cha == 'y');
+
 }

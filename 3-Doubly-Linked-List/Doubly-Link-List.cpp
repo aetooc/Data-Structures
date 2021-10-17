@@ -53,7 +53,7 @@ void List::Insert(){
                 temp1->previous = temp;
                 // cout<<"Done2\n";
                 if(temp1->next != NULL)
-                    temp1->next->previous = temp->next;
+                    temp1->next->previous = temp1;
                 // cout<<"Done3\n";
                 temp->next = temp1;
                 
@@ -72,31 +72,41 @@ void List::Delete(){
         temp = head;
         cout << "Enter The Element You Want To Delete!: ";
         cin >> key;
-        while(temp != NULL){
+        if (head->next == NULL){
             if(temp->info == key){
-                if (temp->previous == NULL){
-                    head = head->next;
-                    head->previous = NULL;
-                    temp1 = temp;
-                    temp = temp->next;
-                    delete temp1; temp1  = NULL;
-                }
-                else if (temp->next == NULL){
-                    temp->previous->next = NULL;
-                    temp1 = temp;
-                    temp = temp->previous;
-                    delete temp1; temp1 = NULL;
-                }
-                else{
-                    temp->previous->next = temp->next;
-                    temp->next->previous = temp->previous;
-                    temp1 = temp;
-                    temp = temp->previous;
-                    delete temp1; temp1 = NULL;
-                }
-
+                delete temp;
+                temp = head = NULL;
+                return;
             }
-            temp = temp->next;
+        }
+        else{
+
+            while(temp != NULL){
+                if(temp->info == key){
+                    if (temp->previous == NULL){
+                        head = head->next;
+                        head->previous = NULL;
+                        temp1 = temp;
+                        temp = temp->next;
+                        delete temp1; temp1  = NULL;
+                    }
+                    else if (temp->next == NULL){
+                        temp->previous->next = NULL;
+                        temp1 = temp;
+                        temp = temp->previous;
+                        delete temp1; temp1 = NULL;
+                    }
+                    else{
+                        temp->previous->next = temp->next;
+                        temp->next->previous = temp->previous;
+                        temp1 = temp;
+                        temp = temp->previous;
+                        delete temp1; temp1 = NULL;
+                    }
+
+                }
+                temp = temp->next;
+            }
         }
     }
 }
@@ -146,10 +156,8 @@ void List::Search(){
 int main(){
     List obj;
     obj.Insert();
-    obj.Insert();
-    obj.Insert();
-    obj.Insert();
-    obj.Insert();
+    // obj.Insert();
+    // obj.Insert();
     obj.Delete();
     obj.Print();
 
